@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <style>
+	.child{
+			height: 50vh; 
+		}
 input[type=text], select {
   width: 100%;
   padding: 12px 20px;
@@ -37,28 +40,29 @@ input[type=submit]:hover {
 }
 
 div {
-  border-radius: 5px;
+	height: 50%;
+  border-radius: 1px;
   background-color: #f2f2f2;
-  padding: 20px;
+  padding: 10px;
 }
+
 </style>
 <body>
 	<h1 style="align-content: center;width: 30%;margin-left: 45%">Login Form</h1>
-	<div id="outerbox" style="align-content: center;width: 30%;margin-left: 35%">
-	
-
-	<div style="background-color: blue;">
+	<div  id="outerbox" style="align-content: center;width: 30%;margin-left: 35%;">
+		<div class="child" style="background-color: blue;height: 30%">
 	  <form action="register.html" target="register.html" method="get">
 	    <label>Username</label>
 	    <input type="text" id="uname" name="username" placeholder="Username...">
 
 	    <label>Password</label>
 	    <input type="password" id="pass" name="Password" placeholder="password..">
-	 </div>
-	 <div >
+	    </div>
+	   <div class="child" style="background-color: white; height: 60%;">
 	    <input type="submit" value="Submit">
+	    </div>
 	  </form>
+	
 	</div>
-</div>
 </body>
 </html>
