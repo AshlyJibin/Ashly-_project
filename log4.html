@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<style>
+		*{
+			margin: 0;border:0;padding: 0;box-sizing: border-box;
+		}
+		#container{
+			
+			min-height: 100vh;
+		}
+		.top
+		{
+			height: 50vh;
+			background-color: blue;
+			position: relative;
+		}
+		.bottom
+		{
+			height: 50vh;
+			background-color: white;
+		}
+		#log{
+			width: 20%;
+			height: 20%;
+			
+  			
+			position: absolute;
+			margin-top: 15%;
+			margin-left: 40%;
+		}
+		label{
+
+			}
+		input[type=text] {
+			  width: 100%;
+			  padding: 12px 20px;
+			  margin: 8px 0;
+			  display: inline-block;
+			  border: 1px solid #ccc;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+			}
+			input[type=password], select {
+			  width: 100%;
+			  padding: 12px 20px;
+			  margin: 8px 0;
+			  display: inline-block;
+			  border: 1px solid #ccc;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+			}
+
+
+			input[type=submit] {
+			  width: 100%;
+			  background-color: #004d00;
+			  color: white;
+			  padding: 14px 20px;
+			  margin: 8px 0;
+			  border: none;
+			  border-radius: 4px;
+			  cursor: pointer;
+			}
+
+			input[type=submit]:hover {
+			  background-color: #008000;
+			}
+
+	</style>
+		
+</head>
+<body>
+<div>
+	<div id="container">
+		<div class="top">
+			<div id="log">
+				<form action="register.html" target="register.html" method="get">
+
+				    <label >Username</label><br>
+				    <input type="text" id="uname" name="username" placeholder="Username..."><br>
+
+				    <label>Password</label>
+				    <input type="password" id="pass" name="Password" placeholder="password..">
+				    <input type="submit" value="Submit">
+	  			</form>
+	  		</div>
+	 	</div>
+		<div class="bottom">
+		
+		</div>
+</div>
+</body>
+</html>
