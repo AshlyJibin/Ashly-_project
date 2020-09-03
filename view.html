@@ -8,17 +8,19 @@
 	<div class="container">
 		<table class="table table-stripped">
 		<tbody id="data">
-			<thead>
+			
 				<tr>
+					<thead>
 					<th>Id</th>
 					<th>Name</th>
 					<th>Pantone_value</th>
 					<th>Year</th>
 					<th>Color</th>
 
+				</thead>
 
 				</tr>
-			</thead>
+			
 			
 		</tbody>
 
@@ -30,19 +32,19 @@
         	res=>{
         		res.json().then(
         			data=>{
-						console.log(data);
-						if(data.length>0){
+						console.log(data.data);
+						if(data.data.length>0){
 						  var temp="";
-						  data.forEach((u)=>{
+						  data.data.forEach((u)=>{
 							temp += "<tr>";
 							temp += "<td>"+u.id+"</td";
 							temp += "<td>"+u.name+"</td";
 							temp += "<td>"+u.pantone_value+"</td";
 							temp += "<td>"+u.year+"</td";
-							temp += "<td>"+u.color+"</td";
+							temp += "<td>"+u.color+"</td>";
 							temp += "</tr>";
-							})
-				doccument.getElementById("data").innerHTML=temp;
+						})
+					document.getElementById("data").innerHTML=temp;
 						}
 					}
         	
