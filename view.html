@@ -3,10 +3,43 @@
 <head>
 	<title>view</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<style>
+	#container{
+			
+			min-height: 100vh;
+		}
+		.top
+		{
+			height: 50vh;
+			
+			position: relative;
+		}
+		.bottom
+		{
+			height: 50vh;
+			background-color: white;
+		}
+		
+		table {
+			    width: 50%;
+			}
+			th {
+			    background: #f1f1f1;
+			    font-weight: bold;
+			    padding: 6px;
+			}
+			td {
+			    background: #f9f9f9;
+			    padding: 6px;
+			}
+
+</style>
 </head>
 <body>
 	<div class="container">
-		<table class="table table-stripped">
+		<div class="top">
+			<H2 style="margin-left: 45%;margin-top: 10%;">Table Data</H2>
+		<table class="table table-stripped" id="view" style="margin-left: 25%;margin-top: 5%;">
 		<tbody id="data">
 			
 				<tr>
@@ -23,10 +56,11 @@
 			
 			
 		</tbody>
-
+		</div>
 	</div>
 
 	</table>
+	<div class="bottom">
 	<script>
         fetch("https://reqres.in/api/userslist").then(
         	res=>{
@@ -37,10 +71,10 @@
 						  var temp="";
 						  data.data.forEach((u)=>{
 							temp += "<tr>";
-							temp += "<td>"+u.id+"</td";
-							temp += "<td>"+u.name+"</td";
-							temp += "<td>"+u.pantone_value+"</td";
-							temp += "<td>"+u.year+"</td";
+							temp += "<td>"+u.id+"</td>";
+							temp += "<td>"+u.name+"</td>";
+							temp += "<td>"+u.pantone_value+"</td>";
+							temp += "<td>"+u.year+"</td>";
 							temp += "<td>"+u.color+"</td>";
 							temp += "</tr>";
 						})
@@ -54,6 +88,6 @@
         	)
 		
 	</script>
-
+  </div>
 </body>
 </html>
