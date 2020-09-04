@@ -102,7 +102,7 @@
 							temp += "<td>"+u.year+"</td>";
 							temp += "<td>"+u.color+"</td>";
 							temp += "<td><button onclick='update()'>Update</button></td>";
-							temp += "<td><button onclick='Delete(+u.id+)'>Delete</button></td>";
+							temp += "<td><button onclick='Delete("+u.id+")'>Delete</button></td>";
 							temp += "</tr>";
 						})
 					document.getElementById("data").innerHTML=temp;
