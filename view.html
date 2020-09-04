@@ -3,6 +3,29 @@
 <head>
 	<title>view</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+	function update() 
+	{
+			location.href="update.html";
+	}
+</script>
+<script >
+	function Delete(id) {
+
+	$.ajax({
+		url :'https://reqres.in/api/delete/'+id,
+		method: 'DELETE',
+		success: function (){
+			alert('record has been deleted');
+			location.reload();
+
+		},
+		error: function(error){
+			alert(error);}
+	})	// body...
+	}
+
+</script>
 <style>
 	#container{
 			
@@ -34,6 +57,7 @@
 			}
 
 </style>
+
 </head>
 <body>
 	<div class="container">
@@ -49,7 +73,8 @@
 					<th>Pantone_value</th>
 					<th>Year</th>
 					<th>Color</th>
-
+					<th>Update</th>
+					<th>Delete</th>
 				</thead>
 
 				</tr>
@@ -76,6 +101,8 @@
 							temp += "<td>"+u.pantone_value+"</td>";
 							temp += "<td>"+u.year+"</td>";
 							temp += "<td>"+u.color+"</td>";
+							temp += "<td><button onclick='update()'>Update</button></td>";
+							temp += "<td><button onclick='Delete(+u.id+)'>Delete</button></td>";
 							temp += "</tr>";
 						})
 					document.getElementById("data").innerHTML=temp;
@@ -88,6 +115,7 @@
         	)
 		
 	</script>
+	
   </div>
 </body>
 </html>
