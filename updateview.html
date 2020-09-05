@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>view</title>
+<title>view</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <script>
-	function update(id) 
-	{
-		
-		$.ajax({
-        url: "https://reqres.in/api/update/" +id,
-		method: 'GET',
-		datatype: 'json',
-		
-         success: function (data) {
-					$('#id').val(data.id);
-					$('#name').val(data.name);
-					$('#pvalue').val(data.pvalue);
-					$('#color').val(data.color);
-			},
-		if(id){
-			url: "https://reqres.in/api/update/" +id,
-			method : 'PUT' ,
-		}
-      });
-	}
+$('#saveModal').on('click', function () {
+  var Id = $('#Id').val();
+  var data = {
+    id: id,
+	name: $('#name').val(),
+	pvalue: $('#pvalue').val(),
+	color:$('#color').val(),
+	year: $('#year').val(),
+  }
+  console.log(data);
+  $.ajax({
+    type: 'PUT',
+    contentType: 'application/json; charset=utf-8',
+    url: "https://reqres.in/api/update/" +id,
+    data: JSON.stringify(data),
+    success: function (data) {
+        console.log(data);
+    },
+    error: function (xhr, textStatus, error) {
+        var response = JSON.parse(xhr.responseText);
+        console.log(response.message);
+    }
+  });
+ 
+})
 </script>
+
 <script >
 	function Delete(id) {
 
@@ -151,7 +157,7 @@
 					<div class="form-group">
 						<tr>
 						<td><label>Id</label></td>
-						<td><input type="text" id="id"></input></td>
+						<td><input type="text" id="id" value="+u.id+"></input></td>
 					</tr>
 					</div>
 				<div class="form-group">
@@ -184,9 +190,8 @@
 		
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal" pull-left onclick="">Update</button>
-
-			  <button type="button" class="btn btn-danger" data-dismiss="modal" pull-right>Cancel</button>
+				<button type="button" class="btn btn-danger" id="saveModal" data-dismiss="modal" pull-left onclick="">Update</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal" pull-right>Cancel</button>
 			</div>
 	  
 		  </div>
