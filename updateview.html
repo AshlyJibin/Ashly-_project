@@ -1,203 +1,253 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>view</title>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<title>view</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<script>
-$('#saveModal').on('click', function () {
-  var Id = $('#Id').val();
-  var data = {
-    id: id,
-	name: $('#name').val(),
-	pvalue: $('#pvalue').val(),
-	color:$('#color').val(),
-	year: $('#year').val(),
-  }
-  console.log(data);
-  $.ajax({
-    type: 'PUT',
-    contentType: 'application/json; charset=utf-8',
-    url: "https://reqres.in/api/update/" +id,
-    data: JSON.stringify(data),
-    success: function (data) {
-        console.log(data);
-    },
-    error: function (xhr, textStatus, error) {
-        var response = JSON.parse(xhr.responseText);
-        console.log(response.message);
-    }
-  });
- 
-})
-</script>
+	<script>
+		function updatedata() {
+			var Id = $('#Id').val();
+			var data = {
+				name: $('#name').val(),
+				pantone_value: $('#pvalue').val(),
+				color: $('#color').val(),
+				year: $('#year').val(),
+			}
+			console.log(data);
+			$.ajax({
+				type: 'PUT',
+				contentType: 'application/json; charset=utf-8',
+				url: "https://reqres.in/api/update/" + id,
+				data: JSON.stringify(data),
+				success: function (data) {
+					alert('record has been updated');
+				},
+				error: function (xhr, textStatus, error) {
+					var response = JSON.parse(xhr.responseText);
+					console.log(response.message);
+				}
+			});
 
-<script >
-	function Delete(id) {
+		}
+	</script>
 
-	$.ajax({
+	<script>
+		function Delete(id) {
 
-		url :'https://reqres.in/api/'+id,
-		method: 'DELETE',
-		success: function (){
-			alert('record has been deleted');
-			
+			$.ajax({
 
-		},
-		error: function(error){
-			alert(error);}
-	})	// body...
-	}
+				url: 'https://reqres.in/api/' + id,
+				method: 'DELETE',
+				success: function () {
+					alert('record has been deleted');
 
-</script>
-<style>
-	#container{
-			
+
+				},
+				error: function (error) {
+					alert(error);
+				}
+			}) // body...
+		}
+	</script>
+	<style>
+		#container {
+
 			min-height: 50vh;
 		}
-		.top
-		{
+
+		.top {
 			height: 10vh;
-			
+
 			position: relative;
 		}
-		.bottom
-		{
+
+		.bottom {
 			height: 50vh;
 			background-color: white;
 		}
-		
-		table {
-			    width: 50%;
-			}
-			th {
-			    background: #f1f1f1;
-			    font-weight: bold;
-			    padding: 6px;
-			}
-			td {
-			    background: #f9f9f9;
-			    padding: 6px;
-			}
 
-</style>
+		table {
+			width: 50%;
+		}
+
+		th {
+			background: #f1f1f1;
+			font-weight: bold;
+			padding: 6px;
+		}
+
+		td {
+			background: #f9f9f9;
+			padding: 6px;
+		}
+	</style>
 
 </head>
+
 <body>
 	<div class="container">
 		<div class="top">
 			<H2 style="margin-left: 45%;margin-top: 2px;">Table Data</H2>
-		<table class="table table-stripped" id="view" style="margin-left: 20px;margin-top: 5%;">
-		<tbody id="data">
-			
-				<tr>
-					<thead>
-					<th>Id</th>
-					<th>Name</th>
-					<th>Pantone_value</th>
-					<th>Year</th>
-					<th>Color</th>
-					<th>Update</th>
-					<th>Delete</th>
-				</thead>
+			<table class="table table-stripped" id="view" style="margin-left: 20px;margin-top: 5%;">
+				<tbody id="data">
 
-				</tr>
-			
-			
-		</tbody>
+					<tr>
+						<thead>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Pantone_value</th>
+							<th>Year</th>
+							<th>Color</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</thead>
+
+					</tr>
+
+
+				</tbody>
 		</div>
 	</div>
 
 	</table>
 	<div class="bottom">
-	<script>
-        fetch("https://reqres.in/api/userslist").then(
-        	res=>{
-        		res.json().then(
-        			data=>{
-						console.log(data.data);
-						if(data.data.length>0){
-						  var temp="";
-						  data.data.forEach((u)=>{
-							temp += "<tr>";
-							temp += "<td>"+u.id+"</td>";
-							temp += "<td>"+u.name+"</td>";
-							temp += "<td>"+u.pantone_value+"</td>";
-							temp += "<td>"+u.year+"</td>";
-							temp += "<td>"+u.color+"</td>";
-							temp += "<td><button onclick='update("+u.id+")' data-toggle='modal' data-target='#myModal'>Update</button></td>";
-					temp += "<td><button onclick='Delete("+u.id+")'>Delete</button></td>";
-							temp += "</tr>";
-						})
-					document.getElementById("data").innerHTML=temp;
+		<script>
+			var users = []; //global variable
+			fetch("https://reqres.in/api/userslist").then(
+				res => {
+					res.json().then(
+						data => {
+							console.log(data.data);
+							if (data.data.length > 0) {
+								var temp = "";
+								users = data.data;
+								data.data.forEach((u) => {
+									temp += "<tr>";
+									temp += "<td>" + u.id + "</td>";
+									temp += "<td>" + u.name + "</td>";
+									temp += "<td>" + u.pantone_value + "</td>";
+									temp += "<td>" + u.year + "</td>";
+									temp += "<td>" + u.color + "</td>";
+									temp += "<td><button onclick='update(" + u.id + ")' >Update</button></td>";
+									temp += "<td><button onclick='Delete(" + u.id + ")'>Delete</button></td>";
+									temp += "</tr>";
+								})
+								document.getElementById("data").innerHTML = temp;
+							}
 						}
-					}
-        	
-        	
-        		)
-        	}
-        	)
-		
-	</script>
-	<div class="modal" id="myModal">
-		<div class="modal-dialog">
-		  <div class="modal-content">
-	  
-			<!-- Modal Header -->
-			<div class="modal-header">
-			  <h4 class="modal-title">Update</h4>
-			  <button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
-	  
-			<!-- Modal body -->
-			<div class="modal-body">
-				<table>
-					<div class="form-group">
-						<tr>
-						<td><label>Id</label></td>
-						<td><input type="text" id="id" value="+u.id+"></input></td>
-					</tr>
+
+
+					)
+				}
+			)
+
+			function update(id) {
+				console.log(id);
+				console.log(users);
+				$("#myModal"). modal('show');//open popup using jquery
+
+				fetch("https://reqres.in/api/userslist").then(
+				res => {
+					res.json().then(
+						data => {
+							if (data.data.length > 0) {
+								var name = "";
+								var pvalue = "";
+								var year = "";
+								var color = " ";
+								users = data.data;
+								data.data.forEach((u) => {
+									if (id==u.id){
+										id=u.id;
+										name=u.name;
+										pvalue=u.pantone_value;
+										year=u.year;
+										color= u.color;
+										$('#id').val(id);
+										$('#name').val(name);
+										$('#pvalue').val(u.pantone_value);
+										$('#year').val(year);
+										$('#color').val(color);
+
+										}
+
+								})
+								
+							}
+						}
+
+
+					)
+				}
+			)
+
+				
+				//loop users and get selected user based on id passed
+				//give values from user to input tags in popup using id
+			}
+		</script>
+		<div class="modal" id="myModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Update</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-				<div class="form-group">
-					<tr>
-					<td><label>Name</label></td>
-					<td><input type="text" id="name"></input></td>
-				</tr>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<table>
+							<div class="form-group">
+								<tr>
+									<td><label>Id</label></td>
+									<td><input type="text" id="id" value=" "></input></td>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr>
+									<td><label>Name</label></td>
+									<td><input type="text" id="name"></input></td>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr>
+									<td><label>pantone_value</label></td>
+									<td><input type="text" id="pvalue"></input></td>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr>
+									<td><label>Year</label></td>
+									<td><input type="number" id="year"></input></td>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr>
+									<td><label>color</label></td>
+									<td><input type="text" id="color"></input></td>
+								</tr>
+							</div>
+						</table>
+
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="saveModal" data-dismiss="modal" pull-left
+							onclick="updatedata()">Ok</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" pull-right>Cancel</button>
+					</div>
+
 				</div>
-				<div class="form-group">
-					<tr>
-					<td><label>pantone_value</label></td>
-					<td><input type="number" id="pvalue"></input></td>
-				</tr>
-				</div>
-				<div class="form-group">
-					<tr>
-					<td><label>Year</label></td>
-					<td><input type="number" id="year"></input></td>
-				</tr>
-				</div>
-				<div class="form-group">
-					<tr>
-					<td><label>color</label></td>
-					<td><input type="text" id="color"></input></td>
-				</tr>
-				</div>	 
-			</table>
-			 
 			</div>
-		
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" id="saveModal" data-dismiss="modal" pull-left onclick="">Update</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal" pull-right>Cancel</button>
-			</div>
-	  
-		  </div>
 		</div>
-	  </div>
-	  
-  </div>
+
+	</div>
 </body>
+
 </html>
