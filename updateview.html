@@ -44,26 +44,27 @@
 									if(u.id==datatopost.Id)
 									{
 										u.name=datatopost.name;
-										console.log(u.name);
 										u.pantone_value=datatopost.pantone_value;
 										u.year=datatopost.year;
 										u.color=datatopost.color;
+										console.log(u.name);
+										console.log(u.pantone_value);
+										console.log(u.year);
+										console.log(u.color);
 									}
-									
-								})
-
-								users.forEach((u) => {
 									temp += "<tr>";
-									temp += "<td>" + u.id + "</td>";
-									temp += "<td>" + u.name + "</td>";
-									temp += "<td>" + u.pantone_value + "</td>";
-									temp += "<td>" + u.year + "</td>";
-									temp += "<td>" + u.color + "</td>";
+									temp += "<td>" + console.log(u.id) + "</td>";
+									temp += "<td>" + console.log(u.name);+ "</td>";
+									temp += "<td>" + console.log(u.pantone_value); + "</td>";
+									temp += "<td>" + console.log(u.year);+ "</td>";
+									temp += "<td>" + console.log(u.color); + "</td>";
 									temp += "<td><button onclick='update(" + u.id + ")' >Update</button></td>";
 									temp += "<td><button onclick='Delete(" + u.id + ")'>Delete</button></td>";
 									temp += "</tr>";
+									
 								})
-								document.getElementById("data").innerHTML = temp;
+
+								//document.getElementById("data").innerHTML = temp;
 							}
 						}
 
