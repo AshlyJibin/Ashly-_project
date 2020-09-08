@@ -9,21 +9,69 @@
 
 	<script>
 		function updatedata() {
-			var Id = $('#Id').val();
-			var data = {
+			//var Id = $('#id').val();
+			var datatopost = {
+				Id : $('#id').val(),
 				name: $('#name').val(),
 				pantone_value: $('#pvalue').val(),
 				color: $('#color').val(),
 				year: $('#year').val(),
 			}
-			console.log(data);
+			console.log(datatopost);
 			$.ajax({
 				type: 'PUT',
 				contentType: 'application/json; charset=utf-8',
 				url: "https://reqres.in/api/update/" + id,
-				data: JSON.stringify(data),
+				data: JSON.stringify(datatopost),
+				dataType: "json",
 				success: function (data) {
 					alert('record has been updated');
+					$("#containerdiv").empty();
+	
+					var users = []; //global variable
+				fetch("https://reqres.in/api/userslist").then(
+				res => {
+					res.json().then(
+						data => {
+							var temp = "";
+							if (data.data.length > 0) {
+								
+								users = data.data;
+								console.log(users);
+								console.log(datatopost);
+								console.log(datatopost.Id);
+								users.forEach((u) => {
+									if(u.id==datatopost.Id)
+									{
+										u.name=datatopost.name;
+										console.log(u.name);
+										u.pantone_value=datatopost.pantone_value;
+										u.year=datatopost.year;
+										u.color=datatopost.color;
+									}
+									
+								})
+
+								users.forEach((u) => {
+									temp += "<tr>";
+									temp += "<td>" + u.id + "</td>";
+									temp += "<td>" + u.name + "</td>";
+									temp += "<td>" + u.pantone_value + "</td>";
+									temp += "<td>" + u.year + "</td>";
+									temp += "<td>" + u.color + "</td>";
+									temp += "<td><button onclick='update(" + u.id + ")' >Update</button></td>";
+									temp += "<td><button onclick='Delete(" + u.id + ")'>Delete</button></td>";
+									temp += "</tr>";
+								})
+								document.getElementById("data").innerHTML = temp;
+							}
+						}
+
+					)
+					
+				}
+			)
+				
 				},
 				error: function (xhr, textStatus, error) {
 					var response = JSON.parse(xhr.responseText);
@@ -43,8 +91,6 @@
 				method: 'DELETE',
 				success: function () {
 					alert('record has been deleted');
-
-
 				},
 				error: function (error) {
 					alert(error);
@@ -88,7 +134,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container" id="containerdiv">
 		<div class="top">
 			<H2 style="margin-left: 45%;margin-top: 2px;">Table Data</H2>
 			<table class="table table-stripped" id="view" style="margin-left: 20px;margin-top: 5%;">
@@ -113,7 +159,7 @@
 	</div>
 
 	</table>
-	<div class="bottom">
+	<div class="bottom" id="bottomdiv">
 		<script>
 			var users = []; //global variable
 			fetch("https://reqres.in/api/userslist").then(
@@ -154,23 +200,14 @@
 					res.json().then(
 						data => {
 							if (data.data.length > 0) {
-								var name = "";
-								var pvalue = "";
-								var year = "";
-								var color = " ";
 								users = data.data;
 								data.data.forEach((u) => {
 									if (id==u.id){
-										id=u.id;
-										name=u.name;
-										pvalue=u.pantone_value;
-										year=u.year;
-										color= u.color;
-										$('#id').val(id);
-										$('#name').val(name);
+										$('#id').val(u.id);
+										$('#name').val(u.name);
 										$('#pvalue').val(u.pantone_value);
-										$('#year').val(year);
-										$('#color').val(color);
+										$('#year').val(u.year);
+										$('#color').val(u.color);
 
 										}
 
